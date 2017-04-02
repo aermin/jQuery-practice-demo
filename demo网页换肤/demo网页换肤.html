@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="css/default.css" rel="stylesheet" type="text/css" />
+    <link href="css/skin_0.css" rel="stylesheet" type="text/css" id="cssfile" />
+	<script src="scripts/jquery-1.3.1.js" type="text/javascript"></script>
+    <!--cookie插件-->
+	<script src="js/jquery.cookie.js" type="text/javascript"></script>
+	<script type="text/javascript">
+      
+      $(function(){
+     //li绑定点击函数；该元素添加✅，兄弟元素去除✅；；设置不同皮肤（巧用id名跟css名一致）；计入cookie；
+    $("#skin li").click(function(){
+        $("#"+this.id).addClass("selected")
+                     .siblings().removeClass("selected")
+        $("#cssfile").attr("href","css/"+this.id+".css");
+        $.cookie("MyCssSkin",this.id,{path:'/',expires:10});
+    })
+
+    // function switchSkin(skinName){
+    //     $("#"+skinName).addClass("selected") 
+    //           .siblings().removeClass("selected");
+    //            $("#cssfile").attr("href","css/"+skinName+".css");
+    //     $.cookie("MyCssSkin",skinName,{path:'/',expires:10});
+    // }
+
+        
+        // var $1i =$("fskin li ");
+        // $li. click(function() {
+        // switchSkin(this.id);
+        // });
+        // var cookie_skin = $.cookie( "MyCssSkin") ;
+        // if (cookie_skin) {
+        // switchSkin( cookie_skin );
+        // }
+
+ })
+
+    </script>
+</head>
+<body>
+
+   <ul id="skin">
+		<li id="skin_0" title="0" class="selected">灰色</li>
+		<li id="skin_1" title="1">紫色</li>
+		<li id="skin_2" title="2">红色</li>
+		<li id="skin_3" title="3">天蓝色</li>
+		<li id="skin_4" title="4">橙色</li>
+		<li id="skin_5" title="5">淡绿色</li>
+	</ul>
+
+    <div id="div_side_0">
+		<div id="news">
+		    <h1 class="title">时事新闻</h1>
+		</div>
+    </div>
+
+    <div id="div_side_1">
+		<div id="game">
+			<h1 class="title">娱乐新闻</h1>
+		</div>
+    </div> 
+
+</body>
+</html>
