@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo</title>
+    <style>
+    body, input, select, button, h1 {
+    font-size: 20px;
+	line-height:1.7;
+}
+    </style>
+</head>
+<body>
+   
+    <h1>员工信息查询</h1>
+    <label for="">请输入员工编号：</label>
+    <input type="text" id="keyword" placeholder="如101" >
+    <button id="search">查询</button>
+    <p id="searchResult"></p>
+
+    <h1>员工信息新建</h1>
+    <label for="">请输入员工姓名：</label>
+    <input type="text" id="staffName" placeholder="如张三" ><br>
+    <label for="">请输入员工编号：</label>
+    <input type="text" id="staffNumber" placeholder="如101" ><br>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+    <label>请选择员工性别：</label>
+    <select name="sex" id="staffSex">
+        <option placeholder="男">男</option>
+        <option placeholder="女">女</option>
+    </select><br>
+    <label for="staffJob">请输入员工职位：</label>
+    <input type="text" id="staffJob" placeholder="如前端攻城狮" ><br>
+    <button id="save">保存</button>
+    <p id="createResult"></p>
+
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+    <script>
+        // 处理跨域方法1-- 代理：这种方式是通过后台(ASP、PHP、JAVA、ASP.NET)获取其他域名下的内容，
+        // 然后再把获得内容返回到前端，这样因为在同一个域名下，所以就不会出现跨域的问题。
+    //处理跨域方法2--jsonp 
+   	//jsonp只能用于get 不能用于post
+        $(document).ready(function(){
+$("#search").click(function(){
+       $.ajax({
+           type:"GET",
+           url:"http://127.0.0.1:80/123/serverjsonp.php?number=" +$("#keyword").val(), //将localhost
+           dataType:"jsonp",
+           jsonp:"callback",
+           success:function(data){
+          if(data.success){
+                 $("#searchResult").html(data.msg)
+                }else{
+                  $("#searchResult").html("出现错误:"+data.msg)
+                }
+          }
+           ,error:function(jqXHR){
+           alert("发生错误:" +jqXHR.status);
+           },
+       });
+       });
+    
+      $("#save").click(function(){
+       $.ajax({
+           type:"POST",
+           url:"serverjsonp.php",
+           dataType:"json",
+           data:{
+               name:$("#staffName").val(),
+                number:$("#staffNumber").val(),
+                  sex:$("#staffSex").val(),
+                    job:$("#staffJob").val()
+           },
+           success:function(data){
+          if(data.success){
+                 $("#createResult").html(data.msg)
+                }else{
+                $("#createResult").html("出现错误:" +data.msg)
+                }
+          }
+           ,error:function(jqXHR){
+           alert("发生错误:"+jqXHR.status);
+           },
+       });
+       });
+    })
+   
+
+
+    </script>
+</body>
+</html>

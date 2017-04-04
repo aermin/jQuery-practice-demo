@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo</title>
+    <style>
+    body, input, select, button, h1 {
+    font-size: 20px;
+	line-height:1.7;
+}
+    </style>
+</head>
+<body>
+   
+    <h1>员工信息查询</h1>
+    <label for="">请输入员工编号：</label>
+    <input type="text" id="keyword" placeholder="如101" >
+    <button id="search">查询</button>
+    <p id="searchResult"></p>
+
+    <h1>员工信息新建</h1>
+    <label for="">请输入员工姓名：</label>
+    <input type="text" id="staffName" placeholder="如张三" ><br>
+    <label for="">请输入员工编号：</label>
+    <input type="text" id="staffNumber" placeholder="如101" ><br>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+    <label>请选择员工性别：</label>
+    <select name="sex" id="staffSex">
+        <option placeholder="男">男</option>
+        <option placeholder="女">女</option>
+    </select><br>
+    <label for="staffJob">请输入员工职位：</label>
+    <input type="text" id="staffJob" placeholder="如前端攻城狮" ><br>
+    <button id="save">保存</button>
+    <p id="createResult"></p>
+
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+    <script>
+       //处理跨域方法3--XHR2 ，但不支持IE10以下
+        $(document).ready(function(){
+$("#search").click(function(){
+       $.ajax({
+           type:"GET",       //类型 ”POST“ OR "GET" 默认为”GET“
+           url:"http://127.0.0.1:80/123/serverjson2.php?number=" +$("#keyword").val(), //发送请求的地址
+           dataType:"json",               //预期服务器返回的数据类型，如果不指定，jQuery自动根据HTTP包MIME信息来只能判断，一般采用json格式
+           success:function(data){      //是一个方法，请求成功后的回调函数。传入返回后的数据，以及包含成功代码的字符串
+          if(data.success){
+                 $("#searchResult").html(data.msg)
+                }else{
+                  $("#searchResult").html("出现错误:"+data.msg)
+                }
+          }
+           ,error:function(jqXHR){    //是一个方法，请求失败时调用函数。传入XMLHttpRequest对象
+           alert("发生错误:" +jqXHR.status);
+           },
+       });
+       });
+    
+      $("#save").click(function(){
+       $.ajax({
+           type:"POST",
+           url:"http://127.0.0.1:80/123/serverjson2.php",
+           dataType:"json",
+           data:{
+               name:$("#staffName").val(),
+                number:$("#staffNumber").val(),
+                  sex:$("#staffSex").val(),
+                    job:$("#staffJob").val()
+           },
+           success:function(data){
+          if(data.success){
+                 $("#createResult").html(data.msg)
+                }else{
+                $("#createResult").html("出现错误:" +data.msg)
+                }
+          }
+           ,error:function(jqXHR){
+           alert("发生错误:"+jqXHR.status);
+           },
+       });
+       });
+    })
+   
+
+
+    </script>
+</body>
+</html>
