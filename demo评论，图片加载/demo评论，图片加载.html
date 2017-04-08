@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  <style type="text/css">
+* { margin:0; padding:0;}
+body { font: 16px 宋体;color:  #6DD1C5;}
+#loading{
+    width:80px;
+	height: 20px;
+	background:#bbb;
+	color:#000;
+	display:none;
+}
+img{border:0;height:100px;width:100px;}
+.comment { margin-top:10px; padding:10px; border:1px solid #ccc;background:#DDD;}
+.comment h6 { font-weight:700; font-size:14px;}
+.para { margin-top:5px; text-indent:2em;background:#DDD;}
+#send1,#send2{font: 16px 宋体;color:  #6DD1C5;}
+</style>
+<script src="../scripts/jquery-1.3.1.js" type="text/javascript"></script>
+<script type="text/javascript">
+ $(function(){
+  $("#send1").click(function(){
+			$.get("get1.php", { 
+						username :  $("#username").val() , 
+						content :  $("#content").val()  
+					}, function (data, textStatus){
+                        $("#resText1").html(data); // 把返回的数据添加到页面上
+					}
+			);
+	   })
+   
+    
+    //JSONP() :JSONP是一种可以绕过同源策略的方法， 即通过使用JSON与<scrip t> 标记相结合的方法， 从服务器端直接返回可执行的JavaScript函数调用或者JavaScript对象。
+    
+        $('#send2').click(function(){
+            $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags=car&tagmode=any&format=json&jsoncallback=?",
+            function(data){
+                // $("#resText2").empty();
+              $.each(data.items,function(i, item){
+             $("<img class='para'/>").attr("src",item.media.m).appendTo("#resText2");
+             if(i==20){
+                 return false;
+             }
+            });
+        });
+   });
+
+   //全局的ajax事件
+    $("#loading").ajaxStart(function(){
+        $(this).show();
+    });
+    $("#loading").ajaxStop(function(){
+        $(this).hide();
+    });
+
+    });
+   </script>
+</head>
+<body>
+
+    <!--1-->
+    <br/>
+    <form id="form1" action="#">
+        <p>评论:</p>
+        <p>姓名: <input type="text" name="username" id="username" /></p>
+        <p>内容: <textarea name="content" id="content" rows="2" cols="20"></textarea></p>
+        <p><input type="button" id="send1" value="提交" /></p>
+    </form>
+    <div class='comment'>已有评论：</div>
+    <div id="resText1">
+    </div>
+    <!--2-->
+    <br/>
+    <div id="loading">加载中...</div>
+    <br/>
+    <input type="button" id="send2" value="点我加载图片" />
+    <div id="resText2">
+    </div>
+    </div>
+
+</body>
+</html>
