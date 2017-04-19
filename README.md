@@ -1,7 +1,7 @@
 
 #### [选项卡](https://hxvin.github.io/-demo-practice-/demo选项卡/demo选项卡.html)
 #### [两列表选项交互选择](https://hxvin.github.io/-demo-practice-/demo两列表选项交互选择/demo两列表选项交互选择.html)
-#### [滑过展开高亮](https://hxvin.github.io/-demo-practice-/demo鼠标点击:滑过展开高亮/demo鼠标点击:滑过展开高亮.html)
+#### [demo鼠标点击:滑过展开高亮](https://hxvin.github.io/-demo-practice-/demo鼠标点击:滑过展开高亮/demo鼠标点击:滑过展开高亮)
 #### [demo评论，图片加载](https://hxvin.github.io/-demo-practice-/demo评论，图片加载/demo评论，图片加载.html)
 #### [demo视频展示左右滚动](https://hxvin.github.io/-demo-practice-/demo视频展示左右滚动/demo视频展示左右滚动.html)
 #### [demo表格表色单:复选框](https://hxvin.github.io/-demo-practice-/demo表格表色单:复选框/demo表格表色单:复选框.html)
